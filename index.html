@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lydia</title>
+    <script src="javascripts/jquery-1.8.2.js"></script>
+    <script src="javascripts/main.js"></script>
+    <script>
+    function processYes() {
+      $('#map').html('');
+      maphtml = "<h1>WOOT!</h1>";
+      $('#map').html(maphtml);
+      $('#form').html('');
+      $('#hints').html('');
+      hintshtml = "<a href=\"#\" onclick=\"showDirs()\">Directions</a>";
+      $('#hints').html(hintshtml);
+    }
+    
+    function processCode(code, num) {
+      num = parseInt(num,10);
+      code = parseInt(code,10);
+      debug = false;
+      if (code % 1000 == 0) {
+        num = code/1000;
+        debug = true;
+      }
+      correct = -1;
+      texthtml = "";
+      maphtml = "";
+      if (num == 1) {
+        correct = 8979;
+        texthtml = "<h2>Will</h2>";
+        maphtml = "<iframe width=\"425\" height=\"100%\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://mapsengine.google.com/map/u/2/embed?mid=zuK1b1otyWls.k-j6QWYxnZ1w\"></iframe>";
+      }
+      else if (num == 2) {
+        correct = 3238;
+        texthtml = "<h2>Will you</h2>";
+        maphtml = "<iframe width=\"425\" height=\"100%\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://mapsengine.google.com/map/u/1/embed?mid=zWKVTfLReALw.kVbfQLi8qiR8\"></iframe>";
+      }
+      else if (num == 3) {
+        correct = 4626;
+        texthtml = "<h2>Will you be</h2>";
+        maphtml = "<iframe width=\"425\" height=\"100%\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://mapsengine.google.com/map/u/1/embed?mid=zWKVTfLReALw.kP4tjHrWEDSQ\"></iframe>";
+      }
+      else if (num == 4) {
+        correct = 4338;
+        texthtml = "<h2>Will you be my</h2>";
+        maphtml="<iframe width=\"425\" height=\"100%\" frameborder=\"0\" scrolling=\"no\" marginheight=\"0\" marginwidth=\"0\" src=\"https://mapsengine.google.com/map/u/1/embed?mid=zStoiTah-Kzw.kKtXI9APWem0\"></iframe>";
+      }
+      else if (num == 5) {
+        correct = 3279;
+        maphtml = "";
+        texthtml = "<h2>Will you be my girlfriend?</h2>";
+        hintshtml = "<a href=\"#\" onclick=\"showDirs()\">Directions</a>";
+      $('#hints').html(hintshtml);
+      }
+    
+      if (debug == true|| code == correct) {
+        $('#text').html(''); 
+        html = texthtml; 
+        $('#text').html(html); 
+        $('#map').html(''); 
+        html = maphtml;
+        $('#map').html(html);
+        $('#form').html('');
+        
+        if (num == 5) {
+          html = "<form><input type=\"radio\" name=\"response\" checked>YES<br><input type=\"radio\" name=\"response\">YES<br>";
+          html += "<input type=\"radio\" name=\"response\">reluctantly yes<br><br>";
+          html += "<button type=\"button\"><a href=\"#\" onclick=\"processYes().value\">Submit</a></button>";
+          $('#map').html(html);
+          $('#form').html('');
+        }
+        else {
+          html = "<p><br>Woot!<form><input type=\"text\" id=\"code\" placeholder=\"Enter the code!\">";
+          html += "&nbsp;&nbsp;<button type=\"button\"><a href=\"#\" onclick=\"processCode(document.getElementById('code').value,";
+          html += String(num+1) + ")\">Submit</a></button>";
+          html += "</form></p>";
+          $('#form').html(html);
+        }
+      }
+      else {
+        $('#form').html('');
+        html = "<p><br>Nope.<form><input type=\"text\" id=\"code\" placeholder=\"Enter the code!\">";
+        html += "&nbsp;&nbsp;<button type=\"button\"><a href=\"#\" onclick=\"processCode(document.getElementById('code').value,";
+        html += String(num) + ")\">Submit</a></button>";
+        html += "</form></p>";
+        $('#form').html(html);
+      }
+    }
+  
+    function showHints() {
+      $('#hints').html('');
+      html = "<a href=\"#\" onclick=\"hideHints()\">Hide Directions</a>";
+      html += "<ul><li>When you reach a stop, tell the employee your name is Lydia</li>";
+      html += "<li>Tap on the map markers for more information</li>";
+      html += "<li>Don't use the keyboard to submit, press the button</li>";
+      html += "<li>Don't refresh</li>";
+      html += "<li>If the map doesn't load, blame Google Maps (Linda!). Uhhh...well this is embarassing. Text me.</li></ul>";
+      $('#hints').html(html);
+    }
+
+    function showDirs() {
+      $('#hints').html('');
+      html = "<a href=\"#\" onclick=\"hideDirs()\">Hide Directions</a>";
+      html += "<ul><li>This really isn't too hard...</li></ul>";
+      $('#hints').html(html);
+    }  
+    
+    function hideHints() {
+      $('#hints').html('');
+      html = "<a href=\"#\" onclick=\"showHints()\">Directions</a>";
+      $('#hints').html(html);
+    }
+    function hideDirs() {
+      $('#hints').html('');
+      html = "<a href=\"#\" onclick=\"showDirs()\">Directions</a>";
+      $('#hints').html(html);
+    }
+  
+    $(document).ready(function() {
+      $(window).keydown(function(event){
+        if(event.keyCode == 13) {
+          event.preventDefault();
+          return false;
+        }
+      });
+    });
+    </script>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  </head>
+  <body>
+    <div class="wrapper"
+      <header>
+        <h3>March 1, 2015 <3 </h3>
+      </header>
+      <div id="text"></div>
+      <div id="hints"><a href="#" onclick="showHints()">Directions</a></div>
+      <br>
+      <div class="iframe-rwd" id="map">
+        <iframe width="425" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://mapsengine.google.com/map/u/1/embed?mid=zWKVTfLReALw.kSfuuaoL9Mp8"></iframe>
+      </div>
+      <div id="form">
+      <p>
+      <form>
+        <input type="text" id="code" placeholder="Enter the code!">
+        <button type=\"button\"><a href="#" onclick="processCode(document.getElementById('code').value,1)">Submit</a></button>
+      </form>
+      </p>
+      </div>
+    </div>
+  <script src="javascripts/scale.fix.js"></script>
+  </body>
+</html>
